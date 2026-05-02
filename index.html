@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>おりょうりまぜまぜ</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main id="app" class="app">
+      <section class="screen screen-title is-active" data-screen="title" aria-labelledby="title-heading">
+        <div class="title-kitchen" aria-hidden="true">
+          <div class="title-pan"></div>
+          <div class="title-bowl">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="title-copy">
+          <h1 id="title-heading">おりょうり<br />まぜまぜ</h1>
+          <p>すきな おりょうり</p>
+        </div>
+
+        <div id="recipeChoices" class="recipe-grid" aria-label="おりょうりをえらぶ"></div>
+
+        <button id="startButton" class="primary-button" type="button">
+          はじめる
+        </button>
+      </section>
+
+      <section class="screen screen-pick" data-screen="pick" aria-labelledby="pick-heading">
+        <header class="stage-header">
+          <div id="pickRecipeMark" class="recipe-mark" aria-hidden="true"></div>
+          <div>
+            <p id="pickRecipeName" class="stage-label"></p>
+            <h2 id="pick-heading">えらんで ぽん</h2>
+          </div>
+        </header>
+
+        <div class="pick-layout">
+          <div id="ingredientGrid" class="ingredient-grid" aria-label="ざいりょう"></div>
+
+          <div class="bowl-panel">
+            <div id="pickBowl" class="big-bowl pick-bowl" aria-label="ボウル">
+              <div class="bowl-back"></div>
+              <div id="pickBowlItems" class="bowl-items"></div>
+              <div class="bowl-front"></div>
+              <div id="pickBowlEffects" class="bowl-effects" aria-hidden="true"></div>
+            </div>
+            <button id="toMixButton" class="primary-button soft-hidden" type="button">
+              まぜまぜへ
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen screen-mix" data-screen="mix" aria-labelledby="mix-heading">
+        <header class="stage-header">
+          <div id="mixRecipeMark" class="recipe-mark" aria-hidden="true"></div>
+          <div>
+            <p id="mixRecipeName" class="stage-label"></p>
+            <h2 id="mix-heading">ぐるぐる</h2>
+          </div>
+        </header>
+
+        <div class="mix-layout">
+          <div id="mixBowl" class="big-bowl mix-bowl" role="button" tabindex="0" aria-label="ボウルをまぜる">
+            <div class="bowl-back"></div>
+            <div id="mixture" class="mixture"></div>
+            <div id="mixSwirl" class="mix-swirl" aria-hidden="true"></div>
+            <div id="mixSpoon" class="mix-spoon" aria-hidden="true"></div>
+            <div class="mix-guide" aria-hidden="true"></div>
+            <div class="bowl-front"></div>
+          </div>
+
+          <div class="mix-controls">
+            <div id="mixDots" class="mix-dots" aria-hidden="true"></div>
+            <button id="mixButton" class="primary-button" type="button">
+              まぜる
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen screen-finish" data-screen="finish" aria-labelledby="finish-heading">
+        <div id="finishBurst" class="finish-burst" aria-hidden="true"></div>
+
+        <header class="finish-header">
+          <p id="finishRecipeName" class="stage-label"></p>
+          <h2 id="finish-heading">できあがり</h2>
+        </header>
+
+        <div id="resultPlate" class="result-plate" aria-label="できあがったおりょうり"></div>
+
+        <div class="finish-actions">
+          <button id="againButton" class="primary-button" type="button">
+            もういっかい
+          </button>
+          <button id="otherButton" class="secondary-button" type="button">
+            べつの おりょうり
+          </button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

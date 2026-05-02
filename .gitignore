@@ -1,0 +1,11 @@
+venv/
+.venv/
+
+# Local browser/test artifacts
+chrome-verify-profile/
+verify-screens/
+*-verify.png
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
