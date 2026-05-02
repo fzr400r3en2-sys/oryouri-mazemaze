@@ -229,6 +229,7 @@ button:focus-visible {
 .recipe-choice span,
 .ingredient-card span {
   font-size: clamp(22px, 3.2vw, 34px);
+  white-space: nowrap;
 }
 
 .primary-button,
@@ -3193,6 +3194,52 @@ button:focus-visible {
   width: min(390px, 42vw);
 }
 
+.install-guide {
+  position: fixed;
+  left: max(14px, env(safe-area-inset-left));
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 14px;
+  border: 4px solid #f2c35a;
+  border-radius: 8px;
+  background: rgba(255, 253, 247, 0.97);
+  box-shadow: 0 16px 40px rgba(126, 87, 42, 0.22);
+}
+
+.install-guide[hidden] {
+  display: none;
+}
+
+.install-guide p {
+  margin: 0;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.install-guide p + p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: clamp(15px, 3.5vw, 18px);
+}
+
+.install-guide-close {
+  min-height: 58px;
+  min-width: 72px;
+  padding: 10px 16px;
+  border: 0;
+  background: linear-gradient(180deg, #ffd96f, #f0a84f);
+  box-shadow: var(--button-shadow);
+  font-size: 22px;
+}
+
 @keyframes floaty {
   0%,
   100% {
@@ -3476,17 +3523,33 @@ button:focus-visible {
 }
 
 @media (orientation: landscape) and (max-height: 820px) {
+  .screen-title {
+    gap: 10px;
+    padding-block: 14px;
+  }
+
   .title-kitchen {
-    width: min(30vw, 180px);
-    height: min(18vw, 112px);
+    width: min(24vw, 150px);
+    height: min(14vw, 90px);
   }
 
   .title-copy h1 {
-    font-size: clamp(46px, 8vw, 84px);
+    font-size: clamp(44px, 7vw, 74px);
+  }
+
+  .title-copy p {
+    margin-top: 4px;
+    font-size: clamp(20px, 2.4vw, 26px);
   }
 
   .recipe-choice {
-    min-height: 164px;
+    min-height: 136px;
+    padding: 12px;
+  }
+
+  .recipe-choice svg {
+    width: min(10vw, 84px);
+    height: min(10vw, 84px);
   }
 
   .screen-mix {
@@ -3556,7 +3619,19 @@ button:focus-visible {
 
   .ingredient-card span,
   .recipe-choice span {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .recipe-choice {
+    grid-template-columns: 1fr;
+    min-height: 118px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .recipe-choice svg {
+    width: 58px;
+    height: 58px;
   }
 
   .ingredient-card {

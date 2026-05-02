@@ -9,7 +9,72 @@
 - `index.html` ゲーム画面
 - `styles.css` 見た目とアニメーション
 - `app.js` ゲームの状態管理と操作
+- `manifest.webmanifest` ホーム画面追加用のPWA設定
+- `sw.js` 初回読み込み後のオフラインキャッシュ
 - `README.md` この説明
+
+## iPhoneで遊ぶ準備
+
+GitHub Pagesの公開URLは、通常は次を使います。
+
+```text
+https://fzr400r3en2-sys.github.io/oryouri-mazemaze/
+```
+
+公開URLを確認するには次を実行します。
+
+```powershell
+python tools/resolve_public_url.py --show-source
+```
+
+iPhoneで読み込むQRコードを生成するには次を実行します。
+
+```powershell
+python tools/generate_iphone_qr.py
+```
+
+生成されるファイル:
+
+- `iphone-qr.svg`
+- `iphone-qr.html`
+
+PCで `iphone-qr.html` を開き、iPhoneのカメラでQRコードを読み込むとゲームURLを開けます。
+
+iPhone側の操作:
+
+1. QRコードを読み込む
+2. Safariで開く
+3. Safariの共有ボタンから「ホーム画面に追加」を選ぶ
+4. 「追加」を押す
+5. 次回からホーム画面の「まぜまぜ」アイコンで開く
+
+iOSの仕様上、「ホーム画面に追加」はWebサイト側から完全自動では実行できません。初回にSafariで開いた時だけ、画面下に短い案内を表示します。ホーム画面アイコンから開いた時は案内を出しません。
+
+Service WorkerはHTTPSまたはlocalhostで動きます。GitHub Pagesで初回読み込みした後は、ゲーム本体、完成料理SVG、アプリアイコンをキャッシュし、可能な範囲でオフラインでも遊べるようにします。iOSの容量管理でキャッシュが消えることはあります。
+
+公開URLが違う場合は、次の優先順位でURLを指定できます。
+
+1. 環境変数 `PUBLIC_URL`
+2. `public_url.txt`
+3. 固定既定値 `https://fzr400r3en2-sys.github.io/oryouri-mazemaze/`
+4. `git remote get-url origin` から推定
+5. 推定できない場合は `public_url.sample.txt` を参考に `public_url.txt` を作成
+
+PowerShellで一時的にURLを指定してQRを作る例:
+
+```powershell
+$env:PUBLIC_URL = "https://example.com/oryouri-mazemaze/"
+python tools/generate_iphone_qr.py
+```
+
+## GitHub Pages公開手順
+
+1. 変更を `https://github.com/fzr400r3en2-sys/oryouri-mazemaze.git` にpushする
+2. GitHubのリポジトリ設定で Pages を開く
+3. Sourceを `Deploy from a branch` にする
+4. Branchを `main`、フォルダを `/ (root)` にする
+5. 公開後、`https://fzr400r3en2-sys.github.io/oryouri-mazemaze/` を開いて表示を確認する
+6. 必要なら `python tools/generate_iphone_qr.py` を再実行してQRを作り直す
 
 ## PCでの確認方法
 
@@ -82,6 +147,23 @@ python tools/generate_dish_assets.py
 
 `assets/images/dishes/preview.html` をブラウザで開くと、6種類の完成料理SVGを一覧で確認できます。ゲーム本体とは独立した確認用ページです。
 
+## PWAアイコンの生成方法
+
+アプリアイコンは外部画像素材を使わず、Python標準ライブラリだけで生成します。
+
+```powershell
+python tools/generate_app_icons.py
+```
+
+生成される主なファイル:
+
+- `assets/icons/icon.svg`
+- `assets/icons/icon-180.svg`
+- `assets/icons/icon-192.svg`
+- `assets/icons/icon-512.svg`
+- `assets/icons/apple-touch-icon.png`
+- `favicon.ico`
+
 ## 改善メモ
 
 - 材料カードと主要ボタンを大きめに調整しました。
@@ -112,4 +194,3 @@ python tools/generate_dish_assets.py
 - 材料をドラッグしてボウルへ入れる操作を追加する。
 - 完成料理の見た目パターンを増やす。
 - 背景やボウルの色を料理ごとに少し変える。
-- PWA化してタブレットのホーム画面から起動しやすくする。

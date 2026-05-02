@@ -27,6 +27,8 @@ const finishBurst = document.querySelector("#finishBurst");
 const resultPlate = document.querySelector("#resultPlate");
 const againButton = document.querySelector("#againButton");
 const otherButton = document.querySelector("#otherButton");
+const installGuide = document.querySelector("#installGuide");
+const installGuideClose = document.querySelector("#installGuideClose");
 const appAssetBase = new URL(".", document.currentScript?.src || window.location.href);
 
 const recipeList = [
@@ -902,6 +904,36 @@ function handlePointerMove(event) {
   }
 }
 
+function setupInstallGuide() {
+  if (!installGuide || !installGuideClose) {
+    return;
+  }
+
+  const userAgent = navigator.userAgent || "";
+  const isIos = /iPhone|iPad|iPod/i.test(userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isStandalone = window.navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
+  const storageKey = "oryouri-install-guide-dismissed";
+
+  if (isIos && !isStandalone && window.localStorage.getItem(storageKey) !== "1") {
+    installGuide.hidden = false;
+  }
+
+  installGuideClose.addEventListener("click", () => {
+    installGuide.hidden = true;
+    window.localStorage.setItem(storageKey, "1");
+  });
+}
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {});
+  });
+}
+
 startButton.addEventListener("click", () => startPicking());
 toMixButton.addEventListener("click", startMixing);
 mixButton.addEventListener("click", addMix);
@@ -938,3 +970,5 @@ mixBowl.addEventListener("keydown", (event) => {
 
 state.recipeId = recipeList[Math.floor(Math.random() * recipeList.length)].id;
 renderRecipeChoices();
+setupInstallGuide();
+registerServiceWorker();
