@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <defs>
+    <style>
+      .line { stroke: #6b5748; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 6; }
+      .soft { stroke: #ffffff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <ellipse cx="256" cy="372" rx="200" ry="76" fill="#d9e3e6" opacity=".42"/>
+  <ellipse class="line" cx="256" cy="350" rx="188" ry="76" fill="#fffdf7"/>
+  <ellipse cx="256" cy="344" rx="127" ry="35" fill="#eef6f7"/>
+  <ellipse cx="256" cy="336" rx="116" ry="28" fill="#ffffff"/>
+
+  <path class="line" d="M93 329c22-74 109-118 187-86 54 22 88 10 126 46 31 30 20 82-25 105-74 38-250 34-288-65z" fill="#c77437"/>
+  <path d="M247 252c45 22 86 16 124 45" fill="none" class="soft" opacity=".28"/>
+  <path class="line" d="M91 323c23-55 80-97 145-94 50 3 73 31 75 69 2 47-40 83-101 90-65 7-112-17-119-65z" fill="#fff6e5"/>
+  <path d="M125 319c43 22 117 18 154-16" fill="none" class="soft" opacity=".8"/>
+
+  <ellipse cx="160" cy="289" rx="18" ry="12" fill="#ffffff" opacity=".9"/>
+  <ellipse cx="209" cy="314" rx="17" ry="12" fill="#ffffff" opacity=".9"/>
+  <ellipse cx="243" cy="272" rx="14" ry="10" fill="#ffffff" opacity=".9"/>
+
+  <path class="line thin" d="M280 243c12 28-4 77-42 103" fill="none" opacity=".36"/>
+  <path class="line thin" d="M312 324c32 8 66 2 87-18" fill="none" opacity=".2"/>
+
+  <rect class="line thin" x="311" y="292" width="45" height="35" rx="10" fill="#f28b4b" transform="rotate(-18 333 310)"/>
+  <rect class="line thin" x="356" y="334" width="45" height="36" rx="12" fill="#e5c77d" transform="rotate(13 378 352)"/>
+  <circle class="line thin" cx="332" cy="365" r="17" fill="#ffd65d"/>
+  <circle class="line thin" cx="393" cy="282" r="14" fill="#79bf85"/>
+  <circle class="line thin" cx="372" cy="302" r="12" fill="#79bf85"/>
+  <rect class="line thin" x="277" y="339" width="38" height="29" rx="10" fill="#f28b4b" transform="rotate(20 296 354)"/>
+  <path d="M338 260c21 3 42 15 54 31" fill="none" class="soft thin" opacity=".25"/>
+
+</svg>

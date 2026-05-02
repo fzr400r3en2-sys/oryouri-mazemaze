@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <defs>
+    <style>
+      .line { stroke: #6b5748; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 6; }
+      .soft { stroke: #ffffff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <ellipse cx="259" cy="411" rx="111" ry="32" fill="#6b5748" opacity=".14"/>
+  <path class="line" d="M166 139h180l-24 251c-3 27-28 44-63 44s-60-17-63-44z" fill="#eaf8ff" opacity=".78"/>
+  <path d="M185 214h142l-15 159c-2 20-21 34-53 34s-51-14-53-34z" fill="#f28b71" opacity=".88"/>
+  <ellipse class="line" cx="256" cy="139" rx="93" ry="25" fill="#ffffff" opacity=".72"/>
+  <ellipse cx="256" cy="214" rx="72" ry="19" fill="#ffb28c" opacity=".75"/>
+  <path d="M202 218c31 14 88 15 116 1" fill="none" class="soft" opacity=".62"/>
+
+  <path class="line" d="M304 93l-68 300" fill="none" stroke="#8ecae6"/>
+  <path class="line" d="M304 93l52 20" fill="none" stroke="#8ecae6"/>
+  <path d="M304 93l-68 300" fill="none" class="soft thin" opacity=".35"/>
+
+  <rect class="line thin" x="212" y="264" width="42" height="34" rx="8" fill="#f9fdff" opacity=".72" transform="rotate(-14 233 281)"/>
+  <rect class="line thin" x="270" y="300" width="38" height="31" rx="8" fill="#f9fdff" opacity=".64" transform="rotate(16 289 315)"/>
+  <circle cx="287" cy="246" r="10" fill="#ffffff" opacity=".72"/>
+  <circle cx="235" cy="337" r="8" fill="#ffffff" opacity=".68"/>
+  <circle cx="287" cy="363" r="7" fill="#ffffff" opacity=".62"/>
+  <path class="line thin" d="M198 182c5 67 9 126 17 200" fill="none" stroke="#ffffff" opacity=".38"/>
+  <path class="line thin" d="M318 181c-3 71-8 135-16 200" fill="none" stroke="#ffffff" opacity=".32"/>
+
+  <path class="line" d="M345 145l67 45-80 29z" fill="#f4a24e"/>
+  <path d="M345 145l67 45" fill="none" class="soft thin" opacity=".45"/>
+  <path class="line thin" d="M370 163l-17 44" fill="none" opacity=".2"/>
+
+</svg>

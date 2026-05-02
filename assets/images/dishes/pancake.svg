@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <defs>
+    <style>
+      .line { stroke: #6b5748; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 6; }
+      .soft { stroke: #ffffff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <ellipse cx="256" cy="374" rx="188" ry="70" fill="#d9e3e6" opacity=".42"/>
+  <ellipse class="line" cx="256" cy="352" rx="176" ry="70" fill="#fffdf7"/>
+  <ellipse cx="256" cy="346" rx="119" ry="32" fill="#eef6f7"/>
+  <ellipse cx="256" cy="338" rx="109" ry="25" fill="#ffffff"/>
+
+  <ellipse class="line" cx="252" cy="318" rx="143" ry="44" fill="#efbc67"/>
+  <path d="M113 318c23 36 241 38 279-1v38c-28 42-242 42-279 1z" fill="#e4a85d"/>
+  <path class="line" d="M113 318c23 36 241 38 279-1v38c-28 42-242 42-279 1z" fill="none"/>
+
+  <ellipse class="line" cx="260" cy="278" rx="144" ry="44" fill="#f3c879"/>
+  <path d="M122 277c29 33 236 36 278-2v34c-35 38-238 38-278 1z" fill="#e9b466"/>
+  <path class="line" d="M122 277c29 33 236 36 278-2v34c-35 38-238 38-278 1z" fill="none"/>
+
+  <ellipse class="line" cx="248" cy="239" rx="139" ry="43" fill="#f7d38b"/>
+  <path d="M119 238c33 32 218 35 259-1v31c-32 37-218 37-259 1z" fill="#eebd72"/>
+  <path class="line" d="M119 238c33 32 218 35 259-1v31c-32 37-218 37-259 1z" fill="none"/>
+
+  <path class="line" d="M229 211c52-26 107 2 98 47-4 20-17 28-15 54 2 34-54 34-54 0 0-24-9-31-32-32-37-2-41-49 3-69z" fill="#9b572c"/>
+  <path d="M245 220c19-10 47-4 58 9" fill="none" class="soft thin" opacity=".35"/>
+  <path d="M246 270c-4 21-1 38 2 53" fill="none" class="soft thin" opacity=".25"/>
+
+  <rect class="line" x="223" y="178" width="74" height="48" rx="12" fill="#ffe176" transform="rotate(-7 260 202)"/>
+  <path d="M236 193h43" fill="none" class="soft thin" opacity=".45"/>
+
+  <path class="line thin" d="M176 260c22 8 40 4 58-11" fill="none" opacity=".3"/>
+  <path class="line thin" d="M307 334c24 6 51 2 70-12" fill="none" opacity=".25"/>
+  <path class="line thin" d="M154 345c19 8 44 6 65-4" fill="none" opacity=".22"/>
+
+  <path class="line" d="M327 211c20-7 40 8 39 31-1 21-17 37-37 37-22 0-37-18-31-39 3-12 12-23 29-29z" fill="#ee6f82"/>
+  <circle cx="330" cy="235" r="4" fill="#ffe0d1"/>
+  <circle cx="347" cy="248" r="4" fill="#ffe0d1"/>
+  <path class="line thin" d="M323 208l-3-18" fill="none" stroke="#5b8d61"/>
+  <circle class="line thin" cx="181" cy="241" r="19" fill="#6c7ed0"/>
+  <circle class="line thin" cx="206" cy="231" r="14" fill="#7b8ee4"/>
+  <path d="M156 289c13 7 43 7 59-2" fill="none" class="soft thin" opacity=".4"/>
+
+</svg>

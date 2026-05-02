@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <defs>
+    <style>
+      .line { stroke: #6b5748; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 6; }
+      .soft { stroke: #ffffff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <ellipse cx="256" cy="394" rx="186" ry="64" fill="#d9e3e6" opacity=".42"/>
+  <ellipse class="line" cx="256" cy="372" rx="174" ry="64" fill="#fffdf7"/>
+  <ellipse cx="256" cy="366" rx="118" ry="30" fill="#eef6f7"/>
+  <ellipse cx="256" cy="358" rx="107" ry="23" fill="#ffffff"/>
+
+  <path class="line" d="M142 160c7 136 30 211 114 211s107-75 114-211z" fill="#df75a0" opacity=".74"/>
+  <ellipse class="line" cx="256" cy="160" rx="114" ry="38" fill="#f39abd" opacity=".88"/>
+  <ellipse cx="256" cy="165" rx="78" ry="21" fill="#ffb7d1" opacity=".72"/>
+  <path d="M177 188c12 96 36 148 79 163" fill="none" class="soft" opacity=".38"/>
+  <path d="M335 188c-12 96-36 148-79 163" fill="none" class="soft" opacity=".28"/>
+  <path class="line thin" d="M194 204c5 70 11 120 26 151" fill="none" opacity=".1"/>
+  <path class="line thin" d="M256 205v154" fill="none" opacity=".1"/>
+  <path class="line thin" d="M318 204c-5 70-11 120-26 151" fill="none" opacity=".1"/>
+  <path d="M176 250c40 19 118 23 160 1" fill="none" class="soft" opacity=".22"/>
+
+  <path class="line thin" d="M323 225l61 36-72 28z" fill="#f4a24e"/>
+  <circle class="line thin" cx="232" cy="263" r="26" fill="#8d6ccf"/>
+  <path class="line thin" d="M188 288c17-10 42-1 45 22 3 27-32 49-58 30-23-16-12-40 13-52z" fill="#ee6f82"/>
+  <circle class="line thin" cx="298" cy="316" r="17" fill="#ffd65d"/>
+  <path class="line thin" d="M204 224c36-15 107-16 143 1" fill="none" stroke="#ffffff" opacity=".5"/>
+  <path class="line thin" d="M192 325c28 22 100 25 132 0" fill="none" stroke="#ffffff" opacity=".22"/>
+  <path d="M199 161c32 16 83 17 115 1" fill="none" class="soft" opacity=".45"/>
+
+</svg>

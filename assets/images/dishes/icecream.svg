@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <defs>
+    <style>
+      .line { stroke: #6b5748; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 6; }
+      .soft { stroke: #ffffff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <ellipse cx="256" cy="424" rx="116" ry="30" fill="#6b5748" opacity=".14"/>
+  <path class="line" d="M174 276h164l-31 148H205z" fill="#efbd72"/>
+  <path class="line thin" d="M190 315c34 19 94 20 132 0" fill="none" opacity=".2"/>
+  <path class="line thin" d="M199 359c31 17 83 18 113 0" fill="none" opacity=".18"/>
+  <path class="line thin" d="M198 281l98 136" fill="none" stroke="#b77b3e" opacity=".36"/>
+  <path class="line thin" d="M318 283L215 417" fill="none" stroke="#b77b3e" opacity=".36"/>
+
+  <circle class="line" cx="194" cy="244" r="70" fill="#f4c5d0"/>
+  <circle class="line" cx="271" cy="210" r="78" fill="#fff3d5"/>
+  <circle class="line" cx="334" cy="252" r="67" fill="#9b623a"/>
+  <path class="line" d="M147 269c34 42 180 59 246 4 6 33-22 67-72 74-88 14-178-13-174-78z" fill="#fff1d0"/>
+  <path d="M211 215c24-23 78-32 110-9" fill="none" class="soft" opacity=".38"/>
+  <path d="M166 232c19-18 49-24 75-13" fill="none" class="soft" opacity=".3"/>
+  <path d="M300 257c15-17 46-22 67-10" fill="none" class="soft" opacity=".22"/>
+
+  <path class="line thin" d="M300 169c16-15 45-15 58 5" fill="none" stroke="#5b8d61"/>
+  <circle class="line thin" cx="286" cy="169" r="22" fill="#e95f68"/>
+  <circle cx="278" cy="161" r="6" fill="#ffd5d5"/>
+
+  <rect x="157" y="214" width="40" height="10" rx="5" fill="#8ecae6" transform="rotate(21 177 219)"/>
+  <rect x="235" y="168" width="42" height="10" rx="5" fill="#e98a9c" transform="rotate(-18 256 173)"/>
+  <rect x="321" y="219" width="38" height="10" rx="5" fill="#f7d86b" transform="rotate(33 340 224)"/>
+  <circle cx="223" cy="251" r="7" fill="#8ed4b2"/>
+  <circle cx="301" cy="275" r="7" fill="#8ecae6"/>
+  <circle cx="253" cy="298" r="7" fill="#e98a9c"/>
+
+</svg>

@@ -27,6 +27,7 @@ const finishBurst = document.querySelector("#finishBurst");
 const resultPlate = document.querySelector("#resultPlate");
 const againButton = document.querySelector("#againButton");
 const otherButton = document.querySelector("#otherButton");
+const appAssetBase = new URL(".", document.currentScript?.src || window.location.href);
 
 const recipeList = [
   {
@@ -35,6 +36,7 @@ const recipeList = [
     color: "#e9b55e",
     icon: "pancake",
     resultClass: "pancake-stack",
+    resultImage: "assets/images/dishes/pancake.svg",
     ingredients: [
       item("flour", "こな", "#fff5d7", "bag"),
       item("egg", "たまご", "#ffd568", "egg"),
@@ -50,6 +52,7 @@ const recipeList = [
     color: "#d69042",
     icon: "curry",
     resultClass: "curry-rice",
+    resultImage: "assets/images/dishes/curry.svg",
     ingredients: [
       item("rice", "ごはん", "#fff8e8", "rice"),
       item("carrot", "にんじん", "#f28b4b", "carrot"),
@@ -65,6 +68,7 @@ const recipeList = [
     color: "#e98784",
     icon: "juice",
     resultClass: "juice-cup",
+    resultImage: "assets/images/dishes/juice.svg",
     ingredients: [
       item("apple", "りんご", "#ef6570", "apple"),
       item("orange", "みかん", "#f4a24e", "orange"),
@@ -80,6 +84,7 @@ const recipeList = [
     color: "#f2c96d",
     icon: "pudding",
     resultClass: "pudding-cup",
+    resultImage: "assets/images/dishes/pudding.svg",
     ingredients: [
       item("egg", "たまご", "#ffd568", "egg"),
       item("milk", "みるく", "#e9f7ff", "milk"),
@@ -95,6 +100,7 @@ const recipeList = [
     color: "#d95f8f",
     icon: "jelly",
     resultClass: "jelly-cup",
+    resultImage: "assets/images/dishes/jelly.svg",
     ingredients: [
       item("berry", "いちご", "#d95f8f", "berry"),
       item("grape", "ぶどう", "#8d6ccf", "grape"),
@@ -110,6 +116,7 @@ const recipeList = [
     color: "#f6d7c7",
     icon: "icecream",
     resultClass: "icecream-cup",
+    resultImage: "assets/images/dishes/icecream.svg",
     ingredients: [
       item("milk", "みるく", "#e9f7ff", "milk"),
       item("berry", "いちご", "#d95f8f", "berry"),
@@ -299,13 +306,42 @@ function showFinish() {
   const recipe = currentRecipe();
   finishRecipeName.textContent = recipe.label;
   resultPlate.dataset.recipe = recipe.id;
-  resultPlate.innerHTML = createResult(recipe);
+  renderResult(recipe);
   clearTransientCookingLayers();
   makeBurst();
   showScreen("finish");
 }
 
-function createResult(recipe) {
+function renderResult(recipe) {
+  resultPlate.classList.toggle("has-dish-image", Boolean(recipe.resultImage));
+
+  if (!recipe.resultImage) {
+    resultPlate.innerHTML = createFallbackResult(recipe);
+    return;
+  }
+
+  const imagePath = resolveAssetPath(recipe.resultImage);
+  resultPlate.innerHTML = `
+    <img class="result-dish-image" src="${imagePath}" alt="${recipe.label}のできあがり" />
+  `;
+
+  resultPlate.querySelector(".result-dish-image").addEventListener(
+    "error",
+    () => {
+      if (resultPlate.dataset.recipe === recipe.id) {
+        resultPlate.classList.remove("has-dish-image");
+        resultPlate.innerHTML = createFallbackResult(recipe);
+      }
+    },
+    { once: true },
+  );
+}
+
+function resolveAssetPath(path) {
+  return new URL(path, appAssetBase).href;
+}
+
+function createFallbackResult(recipe) {
   const selectedColors = state.selected.map((ingredient) => ingredient.color);
   const color =
     recipe.id === "curry"

@@ -57,7 +57,30 @@ http://192.168.1.20:8000/
 - 材料は6個以上入れても、ボウル内で小さくまとまりながら見た目に反映されます。まぜる画面へ進む時は「まぜまぜへ」ボタンを押します。
 - まぜる画面では、大きい「まぜる」ボタンか、ボウルをなぞる操作で進みます。
 - 一定回数まぜると、選んだ材料の色を少し反映した完成料理が出ます。
+- 完成画面では、生成済みの完成料理SVGを優先して表示します。SVGが読めない場合は、既存のCSS/DOM描画に戻ります。
 - 完成画面から同じ料理をもう一回遊ぶか、別の料理に戻れます。
+
+## 完成料理SVGの生成方法
+
+完成料理のSVG素材は、Python標準ライブラリだけを使うスクリプトで生成できます。外部の画像生成AI APIや外部画像素材は使いません。
+
+```powershell
+python tools/generate_dish_assets.py
+```
+
+生成先は `assets/images/dishes/` です。スクリプトは何度実行しても同じ内容を出力し、既存ファイルは上書きします。
+
+生成されるファイル:
+
+- `assets/images/dishes/pancake.svg`
+- `assets/images/dishes/curry.svg`
+- `assets/images/dishes/juice.svg`
+- `assets/images/dishes/pudding.svg`
+- `assets/images/dishes/jelly.svg`
+- `assets/images/dishes/icecream.svg`
+- `assets/images/dishes/preview.html`
+
+`assets/images/dishes/preview.html` をブラウザで開くと、6種類の完成料理SVGを一覧で確認できます。ゲーム本体とは独立した確認用ページです。
 
 ## 改善メモ
 
