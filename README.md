@@ -13,7 +13,7 @@
 - `sw.js` 初回読み込み後のオフラインキャッシュ
 - `README.md` この説明
 
-## iPhoneで遊ぶ準備
+## スマホ・タブレットで遊ぶ準備
 
 GitHub Pagesの公開URLは、通常は次を使います。
 
@@ -39,6 +39,19 @@ python tools/generate_iphone_qr.py
 - `iphone-qr.html`
 
 PCで `iphone-qr.html` を開き、iPhoneのカメラでQRコードを読み込むとゲームURLを開けます。
+
+Androidタブレットで読み込むQRコードを生成するには次を実行します。
+
+```powershell
+python tools/generate_iphone_qr.py --svg android-qr.svg --html android-qr.html --device-name Androidタブレット --browser-name Chrome
+```
+
+生成されるファイル:
+
+- `android-qr.svg`
+- `android-qr.html`
+
+PCで `android-qr.html` を開き、AndroidタブレットのカメラでQRコードを読み込むとゲームURLを開けます。
 
 iPhone側の操作:
 
@@ -67,6 +80,8 @@ $env:PUBLIC_URL = "https://example.com/oryouri-mazemaze/"
 python tools/generate_iphone_qr.py
 ```
 
+Androidタブレット用QRも同じ `PUBLIC_URL` を使います。
+
 ## GitHub Pages公開手順
 
 1. 変更を `https://github.com/fzr400r3en2-sys/oryouri-mazemaze.git` にpushする
@@ -74,7 +89,8 @@ python tools/generate_iphone_qr.py
 3. Sourceを `Deploy from a branch` にする
 4. Branchを `main`、フォルダを `/ (root)` にする
 5. 公開後、`https://fzr400r3en2-sys.github.io/oryouri-mazemaze/` を開いて表示を確認する
-6. 必要なら `python tools/generate_iphone_qr.py` を再実行してQRを作り直す
+6. 必要なら `python tools/generate_iphone_qr.py` を再実行してiPhone用QRを作り直す
+7. Android用QRは `python tools/generate_iphone_qr.py --svg android-qr.svg --html android-qr.html --device-name Androidタブレット --browser-name Chrome` で作り直す
 
 ## PCでの確認方法
 

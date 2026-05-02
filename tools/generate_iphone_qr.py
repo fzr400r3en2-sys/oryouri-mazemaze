@@ -204,15 +204,17 @@ def make_svg(url: str) -> str:
 """
 
 
-def make_html(url: str, svg_name: str) -> str:
+def make_html(url: str, svg_name: str, device_name: str, browser_name: str) -> str:
     escaped_url = html.escape(url)
     escaped_svg = html.escape(svg_name)
+    escaped_device = html.escape(device_name)
+    escaped_browser = html.escape(browser_name)
     return f"""<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>おりょうりまぜまぜ iPhone QR</title>
+    <title>おりょうりまぜまぜ {escaped_device} QR</title>
     <style>
       body {{
         margin: 0;
@@ -247,9 +249,9 @@ def make_html(url: str, svg_name: str) -> str:
   </head>
   <body>
     <main>
-      <h1>iPhoneでひらくQR</h1>
+      <h1>{escaped_device}でひらくQR</h1>
       <img src="{escaped_svg}" alt="おりょうりまぜまぜを開くQRコード" />
-      <p>iPhoneのカメラで読み込み、Safariで開いてください。</p>
+      <p>{escaped_device}のカメラで読み込み、{escaped_browser}で開いてください。</p>
       <p><code>{escaped_url}</code></p>
     </main>
   </body>
@@ -258,10 +260,12 @@ def make_html(url: str, svg_name: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="iPhoneで読み込むための公開URL QRコードを生成します。")
+    parser = argparse.ArgumentParser(description="端末で読み込むための公開URL QRコードを生成します。")
     parser.add_argument("--url", help="QRコードに入れるURLを明示します。省略時は公開URL解決ロジックを使います。")
     parser.add_argument("--svg", type=Path, default=DEFAULT_SVG, help="出力するSVGファイル")
     parser.add_argument("--html", type=Path, default=DEFAULT_HTML, help="QR表示用HTMLファイル")
+    parser.add_argument("--device-name", default="iPhone", help="QR表示ページに出す端末名")
+    parser.add_argument("--browser-name", default="Safari", help="QR表示ページに出すブラウザ名")
     args = parser.parse_args()
 
     result = resolve_public_url()
@@ -270,7 +274,7 @@ def main() -> None:
     html_path = args.html if args.html.is_absolute() else ROOT / args.html
 
     svg_path.write_text(make_svg(url), encoding="utf-8", newline="\n")
-    html_path.write_text(make_html(url, svg_path.name), encoding="utf-8", newline="\n")
+    html_path.write_text(make_html(url, svg_path.name, args.device_name, args.browser_name), encoding="utf-8", newline="\n")
     print(f"generated {svg_path.relative_to(ROOT)}")
     print(f"generated {html_path.relative_to(ROOT)}")
     print(f"url ({'argument' if args.url else result.source}): {url}")
