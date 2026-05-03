@@ -1,4 +1,4 @@
-const CACHE_NAME = "oryouri-mazemaze-v20260503-1";
+const CACHE_NAME = "oryouri-mazemaze-v20260503-2";
 
 const PRECACHE_PATHS = [
   "./",

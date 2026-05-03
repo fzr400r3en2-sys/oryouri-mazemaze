@@ -14,6 +14,20 @@
     <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      // beforeinstallprompt は defer 付きスクリプトの登録より早く発火することが
+      // あるため、最も早い段階で捕まえて window に保持しておく。
+      window.__deferredInstallPrompt = null;
+      window.addEventListener("beforeinstallprompt", function (event) {
+        event.preventDefault();
+        window.__deferredInstallPrompt = event;
+        window.dispatchEvent(new CustomEvent("oryouri:install-ready"));
+      });
+      window.addEventListener("appinstalled", function () {
+        window.__deferredInstallPrompt = null;
+        window.dispatchEvent(new CustomEvent("oryouri:installed"));
+      });
+    </script>
     <script src="app.js" defer></script>
   </head>
   <body>

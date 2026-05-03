@@ -919,19 +919,39 @@ function setupInstallGuide() {
   const storageKey = "oryouri-install-guide-dismissed";
   const dismissed = window.localStorage.getItem(storageKey) === "1";
 
-  let deferredPrompt = null;
+  let deferredPrompt = window.__deferredInstallPrompt || null;
+  let currentMode = null;
 
-  function showGuide({ title, body, actionLabel }) {
-    if (installGuideTitle) installGuideTitle.textContent = title;
-    if (installGuideBody) installGuideBody.textContent = body;
-    if (installGuideAction) {
-      if (actionLabel) {
-        installGuideAction.textContent = actionLabel;
+  function setActionEnabled(enabled) {
+    if (!installGuideAction) return;
+    installGuideAction.disabled = !enabled;
+    installGuideAction.style.opacity = enabled ? "" : "0.55";
+  }
+
+  function renderAndroidBar() {
+    if (installGuide.hidden) installGuide.hidden = false;
+    if (deferredPrompt) {
+      currentMode = "prompt";
+      if (installGuideTitle) installGuideTitle.textContent = "ホーム画面に追加できます";
+      if (installGuideBody) installGuideBody.textContent = "ボタンをおして、アイコンから ひらけるように しよう。";
+      if (installGuideAction) {
+        installGuideAction.textContent = "ついか";
         installGuideAction.hidden = false;
-      } else {
-        installGuideAction.hidden = true;
+        setActionEnabled(true);
       }
+    } else {
+      currentMode = "manual";
+      if (installGuideTitle) installGuideTitle.textContent = "ホーム画面に追加";
+      if (installGuideBody) installGuideBody.textContent = "ブラウザの ︙ メニューから「ホーム画面に追加」をえらんでください。";
+      if (installGuideAction) installGuideAction.hidden = true;
     }
+  }
+
+  function showIosGuide() {
+    currentMode = "ios";
+    if (installGuideTitle) installGuideTitle.textContent = "iPhoneでは Safari の共有から";
+    if (installGuideBody) installGuideBody.textContent = "「ホーム画面に追加」→「追加」で、次からアイコンで開けます。";
+    if (installGuideAction) installGuideAction.hidden = true;
     installGuide.hidden = false;
   }
 
@@ -944,70 +964,71 @@ function setupInstallGuide() {
 
   installGuideClose.addEventListener("click", () => hideGuide(true));
 
-  if (isStandalone) {
-    return;
-  }
-
-  if (isIos && !dismissed) {
-    showGuide({
-      title: "iPhoneでは Safari の共有から",
-      body: "「ホーム画面に追加」→「追加」で、次からアイコンで開けます。",
-      actionLabel: null,
-    });
-  }
-
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-    if (dismissed) {
-      return;
-    }
-    showGuide({
-      title: "ホーム画面に追加できます",
-      body: "ボタンをおして、アイコンから ひらけるように しよう。",
-      actionLabel: "ついか",
-    });
-  });
-
   if (installGuideAction) {
     installGuideAction.addEventListener("click", async () => {
       if (!deferredPrompt) {
+        renderAndroidBar();
         return;
       }
       const promptEvent = deferredPrompt;
       deferredPrompt = null;
-      installGuideAction.disabled = true;
+      window.__deferredInstallPrompt = null;
+      setActionEnabled(false);
       try {
-        promptEvent.prompt();
+        await promptEvent.prompt();
         const choice = await promptEvent.userChoice;
         if (choice && choice.outcome === "accepted") {
           hideGuide(true);
         } else {
-          installGuideAction.hidden = true;
+          renderAndroidBar();
         }
       } catch (_) {
-        installGuideAction.hidden = true;
-      } finally {
-        installGuideAction.disabled = false;
+        renderAndroidBar();
       }
     });
   }
 
-  window.addEventListener("appinstalled", () => {
+  window.addEventListener("oryouri:install-ready", () => {
+    deferredPrompt = window.__deferredInstallPrompt;
+    if (isStandalone || dismissed) return;
+    if (isAndroid || (!isIos && !isStandalone)) {
+      renderAndroidBar();
+    }
+  });
+
+  window.addEventListener("oryouri:installed", () => {
     deferredPrompt = null;
     hideGuide(true);
   });
 
-  if (isAndroid && !dismissed) {
+  // ライブイベントも購読（早期キャプチャ後に追加で発火するブラウザ向け）
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    window.__deferredInstallPrompt = event;
+    if (isStandalone || dismissed) return;
+    renderAndroidBar();
+  });
+
+  if (isStandalone || dismissed) {
+    return;
+  }
+
+  if (isIos) {
+    showIosGuide();
+    return;
+  }
+
+  if (isAndroid) {
+    // beforeinstallprompt が来ても来なくても、まずは案内を出す。
+    // 早期キャプチャに既にあれば「ついか」ボタン、なければ手動ガイド。
+    renderAndroidBar();
+    // 数秒待っても prompt が来なければ手動ガイドのまま据え置き（再描画）。
     setTimeout(() => {
-      if (!deferredPrompt && installGuide.hidden) {
-        showGuide({
-          title: "ホーム画面に追加",
-          body: "ブラウザのメニュー（︙）から「ホーム画面に追加」をえらんでください。",
-          actionLabel: null,
-        });
+      if (!deferredPrompt && currentMode !== "manual") {
+        renderAndroidBar();
       }
-    }, 2500);
+    }, 1500);
   }
 }
 
