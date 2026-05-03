@@ -29,6 +29,9 @@ const againButton = document.querySelector("#againButton");
 const otherButton = document.querySelector("#otherButton");
 const installGuide = document.querySelector("#installGuide");
 const installGuideClose = document.querySelector("#installGuideClose");
+const installGuideAction = document.querySelector("#installGuideAction");
+const installGuideTitle = document.querySelector("#install-guide-title");
+const installGuideBody = document.querySelector("#installGuideBody");
 const appAssetBase = new URL(".", document.currentScript?.src || window.location.href);
 
 const recipeList = [
@@ -911,17 +914,101 @@ function setupInstallGuide() {
 
   const userAgent = navigator.userAgent || "";
   const isIos = /iPhone|iPad|iPod/i.test(userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/i.test(userAgent);
   const isStandalone = window.navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
   const storageKey = "oryouri-install-guide-dismissed";
+  const dismissed = window.localStorage.getItem(storageKey) === "1";
 
-  if (isIos && !isStandalone && window.localStorage.getItem(storageKey) !== "1") {
+  let deferredPrompt = null;
+
+  function showGuide({ title, body, actionLabel }) {
+    if (installGuideTitle) installGuideTitle.textContent = title;
+    if (installGuideBody) installGuideBody.textContent = body;
+    if (installGuideAction) {
+      if (actionLabel) {
+        installGuideAction.textContent = actionLabel;
+        installGuideAction.hidden = false;
+      } else {
+        installGuideAction.hidden = true;
+      }
+    }
     installGuide.hidden = false;
   }
 
-  installGuideClose.addEventListener("click", () => {
+  function hideGuide(persist) {
     installGuide.hidden = true;
-    window.localStorage.setItem(storageKey, "1");
+    if (persist) {
+      window.localStorage.setItem(storageKey, "1");
+    }
+  }
+
+  installGuideClose.addEventListener("click", () => hideGuide(true));
+
+  if (isStandalone) {
+    return;
+  }
+
+  if (isIos && !dismissed) {
+    showGuide({
+      title: "iPhoneでは Safari の共有から",
+      body: "「ホーム画面に追加」→「追加」で、次からアイコンで開けます。",
+      actionLabel: null,
+    });
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    if (dismissed) {
+      return;
+    }
+    showGuide({
+      title: "ホーム画面に追加できます",
+      body: "ボタンをおして、アイコンから ひらけるように しよう。",
+      actionLabel: "ついか",
+    });
   });
+
+  if (installGuideAction) {
+    installGuideAction.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        return;
+      }
+      const promptEvent = deferredPrompt;
+      deferredPrompt = null;
+      installGuideAction.disabled = true;
+      try {
+        promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
+        if (choice && choice.outcome === "accepted") {
+          hideGuide(true);
+        } else {
+          installGuideAction.hidden = true;
+        }
+      } catch (_) {
+        installGuideAction.hidden = true;
+      } finally {
+        installGuideAction.disabled = false;
+      }
+    });
+  }
+
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    hideGuide(true);
+  });
+
+  if (isAndroid && !dismissed) {
+    setTimeout(() => {
+      if (!deferredPrompt && installGuide.hidden) {
+        showGuide({
+          title: "ホーム画面に追加",
+          body: "ブラウザのメニュー（︙）から「ホーム画面に追加」をえらんでください。",
+          actionLabel: null,
+        });
+      }
+    }, 2500);
+  }
 }
 
 function registerServiceWorker() {
